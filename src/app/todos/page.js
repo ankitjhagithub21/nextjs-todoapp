@@ -1,45 +1,37 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from 'react'
-import Todo from '@/app/components/Todo'
-import Loader from '@/app/components/Loader'
+import { useSelector } from "react-redux";
+import useFetchTodos from "@/hooks/useFetchTodos";
+import Todo from "@/app/components/Todo";
+import Loader from "@/app/components/Loader";
 
 const Todos = () => {
-  const [todos, setTodos] = useState([])
-  const [loading, setLoading] = useState(true)
-  useEffect(() => {
-    const fetchTodos = async () => {
-      setLoading(true)
-      try {
-        const res = await fetch("/api/todos", {
-          credentials: 'include'
-        })
-        const data = await res.json()
-        if (data.success) {
-          setTodos(data.todos)
-        }
-      } catch (error) {
-        console.log(error)
-      } finally {
-        setLoading(false)
-      }
-    }
-    fetchTodos()
-  }, [])
+ 
+  const { loading, error } = useFetchTodos(); 
+  const {todos} = useSelector((state) => state.todos); 
 
-  if(loading){
-    return <Loader/>
+  if (loading) {
+    return <Loader />;
+  }
+
+  if (error) {
+    return <p>Error: {error}</p>;
   }
 
   return (
-    <div className="grid md:grid-cols-3 grid-cols-1 gap-5 my-24">
-      {
+    <section className="my-24">
+      <h2 className="text-center text-3xl mb-10 font-semibold">Your todos</h2>
+      <div className="grid md:grid-cols-3 grid-cols-1 gap-5">
+      {todos.length > 0 ? (
         todos.map((todo) => {
-          return <Todo key={todo._id} todo={todo} />
+          return <Todo key={todo._id} todo={todo} />;
         })
-      }
+      ) : (
+        <p>No todos available</p>
+      )}
     </div>
-  )
-}
+    </section>
+  );
+};
 
-export default Todos
+export default Todos;

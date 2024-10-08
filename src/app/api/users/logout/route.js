@@ -6,7 +6,6 @@ dbConnect();
 export async function GET() {
     try {
 
-   
 
       const response =   NextResponse.json({ success: true, message:"Logout Successfull." }, { status: 200 });
       

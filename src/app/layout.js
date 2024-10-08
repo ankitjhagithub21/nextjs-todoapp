@@ -14,7 +14,9 @@ export default function RootLayout({ children }) {
       <body>
         <Toaster/>
         <Header/>
-        {children}
+         <main className ="max-w-7xl mx-auto p-5">
+         {children}
+         </main>
         <Footer/>
       </body>
     </html>

@@ -10,6 +10,7 @@ const AddTodo = () => {
 
     const handleAddTodo = async (e) => {
         e.preventDefault()
+
         const formData = new FormData(e.target)
         const todo = Object.fromEntries(formData.entries())
         setIsLoading(true)

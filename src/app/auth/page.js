@@ -32,7 +32,7 @@ const Auth = () => {
       }
     } catch (error) {
       console.log(error)
-      toast.error(data.message)
+      toast.error(error.message)
     } finally {
 
       setIsLoading(false)
@@ -47,9 +47,9 @@ const Auth = () => {
         }
       </h2>
       <form className="flex flex-col gap-3" onSubmit={handleLogin}>
-        <input type="text" placeholder="Enter your email" name="email" className="input input-primary rounded-full" required />
-        <input type="password" placeholder="Enter your password" name="password" className="input input-primary rounded-full" required />
-        <button className="btn btn-primary  rounded-full" disabled={isLoading}>
+        <input type="text" placeholder="Enter your email" name="email" className="input input-primary " required />
+        <input type="password" placeholder="Enter your password" name="password" className="input input-primary " required />
+        <button className="btn btn-primary  " disabled={isLoading}>
           {
             currentState === "login" ? 'Login' : 'Register'
           }

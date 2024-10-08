@@ -1,29 +1,42 @@
 "use client"
+import { useRouter } from "next/navigation"
 import { useState } from "react"
+import toast from "react-hot-toast"
 
 const Auth = () => {
-    
-  const [currentState,setCurrentState] = useState("login")
 
-  const handleLogin = async(e) => {
+  const [currentState, setCurrentState] = useState("login")
+  const [isLoading, setIsLoading] = useState(false)
+  const router = useRouter()
+  const handleLogin = async (e) => {
     e.preventDefault()
-    const url = currentState==="login" ? '/api/users/login' :'api/users/signup'
+    const url = currentState === "login" ? '/api/users/login' : 'api/users/signup'
     const formData = new FormData(e.target)
     const userData = Object.fromEntries(formData.entries())
-    try{
-      const res = await fetch(url,{
-        method:"POST",
-        headers:{
-          "Content-Type":"application/json"
+    setIsLoading(true)
+    try {
+      const res = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
         },
-        body:JSON.stringify(userData)
+        body: JSON.stringify(userData)
       })
 
       const data = await res.json()
-      console.log(data)
-    } catch(error) {
+      if (data.success) {
+        toast.success(data.message)
+        router.push("/")
+      } else {
+        toast.error(data.message)
+      }
+    } catch (error) {
       console.log(error)
-    }  
+      toast.error(data.message)
+    } finally {
+
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -35,22 +48,22 @@ const Auth = () => {
       </h2>
       <form className="flex flex-col gap-3" onSubmit={handleLogin}>
         <input type="text" placeholder="Enter your email" name="email" className="input input-primary rounded-full" required />
-        <input type="password" placeholder="Enter your password" name="password" className="input input-primary rounded-full" required/>
-        <button className="btn btn-primary  rounded-full">
-        {
-          currentState === "login" ? 'Login' : 'Register'
-        }
+        <input type="password" placeholder="Enter your password" name="password" className="input input-primary rounded-full" required />
+        <button className="btn btn-primary  rounded-full" disabled={isLoading}>
+          {
+            currentState === "login" ? 'Login' : 'Register'
+          }
         </button>
       </form>
       <p className="mt-5">
-      {
-        currentState === "login" ? <>
-        Don't have an account ? <span className="underline text-primary cursor-pointer" onClick={()=>setCurrentState("register")}>Register</span>
-        </> :<>
-        Already have an account ? <span className="underline text-primary cursor-pointer" onClick={()=>setCurrentState("login")}>Login</span>
-        </> 
-      }
-      
+        {
+          currentState === "login" ? <>
+            Don't have an account ? <span className="underline text-primary cursor-pointer" onClick={() => setCurrentState("register")}>Register</span>
+          </> : <>
+            Already have an account ? <span className="underline text-primary cursor-pointer" onClick={() => setCurrentState("login")}>Login</span>
+          </>
+        }
+
       </p>
     </div>
   )

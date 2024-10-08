@@ -1,6 +1,6 @@
-
 import dbConnect from '@/lib/db';
 import User from '@/models/User';
+import bcryptjs from 'bcryptjs';
 import { NextResponse} from 'next/server';
 
 dbConnect()
@@ -18,7 +18,14 @@ export async function POST(req) {
         return NextResponse.json({ success: false,message:"User not exist."},{status:404});
     }
     
-    return NextResponse.json({user});
+
+    const validPassword = await bcryptjs.compare(password,user.password)
+
+    if(!validPassword){
+        return NextResponse.json({ success: false,message:"Wrong email or password."},{status:400});
+    }
+
+     return NextResponse.json({ success: true,message:"Login successfull."},{status:200});
 
    
   }catch(error){

@@ -1,33 +1,41 @@
 "use client"
 
 import { useEffect, useState } from 'react'
+import Todo from '@/app/components/Todo'
+import Loader from '@/app/components/Loader'
 
 const Todos = () => {
-    const [todos,setTodos] = useState([])
-
-    useEffect(()=>{
-      const fetchTodos = async() => {
-          const res = await fetch("/api/todos",{
-            credentials:'include'
-          })
-          const data = await res.json()
-          if(data.success){
-            setTodos(data.todos)
-          }
+  const [todos, setTodos] = useState([])
+  const [loading, setLoading] = useState(true)
+  useEffect(() => {
+    const fetchTodos = async () => {
+      setLoading(true)
+      try {
+        const res = await fetch("/api/todos", {
+          credentials: 'include'
+        })
+        const data = await res.json()
+        if (data.success) {
+          setTodos(data.todos)
+        }
+      } catch (error) {
+        console.log(error)
+      } finally {
+        setLoading(false)
       }
-      fetchTodos()
-    },[])
+    }
+    fetchTodos()
+  }, [])
+
+  if(loading){
+    return <Loader/>
+  }
 
   return (
     <div className="grid md:grid-cols-3 grid-cols-1 gap-5 my-24">
       {
-        todos.map((todo)=>{
-          return <div key={todo._id} className="border rounded-lg p-3">
-            <h2>{todo.title}</h2>
-            <p>{todo.description}</p>
-            <b>{todo.createdAt.slice(0,10)}</b>
-            
-          </div>
+        todos.map((todo) => {
+          return <Todo key={todo._id} todo={todo} />
         })
       }
     </div>

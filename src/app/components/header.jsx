@@ -1,11 +1,14 @@
-import React from 'react'
+"use client"
+import Link from 'next/link'
+import { useSelector } from 'react-redux'
 
 const Header = () => {
+  const {user} = useSelector(state=>state.user)
   return (
     <header>
       <div className="navbar bg-base-100 max-w-7xl mx-auto">
         <div className="flex-1">
-          <a className="btn btn-ghost text-xl">daisyUI</a>
+          <Link href="/" className="btn btn-ghost text-xl">TODO</Link>
         </div>
         <div className="flex-none gap-2">
           <div className="form-control">
@@ -22,12 +25,7 @@ const Header = () => {
             <ul
               tabIndex={0}
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-              <li>
-                <a className="justify-between">
-                  Profile
-                  <span className="badge">New</span>
-                </a>
-              </li>
+              
               <li><a>Settings</a></li>
               <li><a>Logout</a></li>
             </ul>

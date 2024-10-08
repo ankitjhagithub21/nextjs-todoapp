@@ -8,6 +8,7 @@ const Auth = () => {
   const [currentState, setCurrentState] = useState("login")
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
+  
   const handleLogin = async (e) => {
     e.preventDefault()
     const url = currentState === "login" ? '/api/users/login' : 'api/users/signup'

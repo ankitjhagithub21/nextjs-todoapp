@@ -1,16 +1,23 @@
 "use client"
 import Link from 'next/link'
+import {usePathname} from 'next/navigation'
 import { useSelector } from 'react-redux'
 
+
 const Header = () => {
+  const pathName = usePathname()
   const {user} = useSelector(state=>state.user)
+
   return (
-    <header>
-      <div className="navbar bg-base-100 max-w-7xl mx-auto">
-        <div className="flex-1">
-          <Link href="/" className="btn btn-ghost text-xl">TODO</Link>
+    <header className="w-full fixed top-0">
+      <nav className="navbar bg-base-100 max-w-7xl mx-auto ">
+        <div className="flex-1 gap-2">
+          <Link href="/" className={`btn ${pathName === "/" && "btn-primary"} `}>Home</Link>
+          <Link href="/add" className={`btn ${pathName === "/add" && "btn-primary"} `}>Add Todo</Link>
         </div>
-        <div className="flex-none gap-2">
+       {
+        user ? <>
+         <div className="flex-none gap-2">
           <div className="form-control">
             <input type="text" placeholder="Search" className="input input-bordered w-24 md:w-auto" />
           </div>
@@ -31,7 +38,9 @@ const Header = () => {
             </ul>
           </div>
         </div>
-      </div>
+        </> :   <Link href="/auth" className={`btn ${pathName === "/auth" && "btn-primary"} `}>Login</Link>
+       }
+      </nav>
     </header>
   )
 }

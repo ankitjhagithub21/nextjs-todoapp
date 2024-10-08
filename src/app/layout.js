@@ -2,7 +2,7 @@ import { Toaster } from "react-hot-toast";
 import Footer from "./components/footer";
 import Header from "./components/header";
 import "./globals.css";
-import {ReduxProvider} from "./redux-provider"
+import { ReduxProvider } from "./redux-provider"
 
 export const metadata = {
   title: "Todo App Using next js",
@@ -13,14 +13,14 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-      <ReduxProvider>
-      <Toaster/>
-        <Header/>
-         <main className ="max-w-7xl mx-auto p-5">
-         {children}
-         </main>
-        <Footer/>
-      </ReduxProvider>
+        <ReduxProvider>
+          <Toaster />
+          <Header />
+          <main className="max-w-7xl mx-auto p-5 min-h-screen">
+            {children}
+          </main>
+          <Footer />
+        </ReduxProvider>
       </body>
     </html>
   );

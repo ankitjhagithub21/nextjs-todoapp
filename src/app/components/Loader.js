@@ -12,7 +12,6 @@ const Loader = () => {
                 <p className="bg-gray-100 rounded-lg p-2 mb-2"></p>
                 <p className="bg-gray-100 rounded-lg p-2 w-1/3"></p>
 
-
             </div>
             })
            }

@@ -42,6 +42,16 @@ const Auth = () => {
         }
         </button>
       </form>
+      <p className="mt-5">
+      {
+        currentState === "login" ? <>
+        Don't have an account ? <span className="underline text-primary cursor-pointer" onClick={()=>setCurrentState("register")}>Register</span>
+        </> :<>
+        Already have an account ? <span className="underline text-primary cursor-pointer" onClick={()=>setCurrentState("login")}>Login</span>
+        </> 
+      }
+      
+      </p>
     </div>
   )
 }

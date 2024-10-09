@@ -8,7 +8,7 @@ const useFetchUser = () => {
      
     useEffect(() => {
         const fetchUser = async () => {
-            setLoading(true)
+           
             try {
                 const res = await fetch("/api/todos", {
                     credentials: 'include'

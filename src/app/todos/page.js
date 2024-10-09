@@ -57,7 +57,7 @@ const Todos = () => {
 
   }
 
-  if (!todos || loading) {
+  if (loading) {
     return <Loader />;
   }
 
@@ -65,6 +65,7 @@ const Todos = () => {
     return <p>Error: {error}</p>;
   }
 
+ 
   return (
     <section className="my-24">
       {

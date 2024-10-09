@@ -9,21 +9,21 @@ const AddTodo = () => {
 
     const [isLoading, setIsLoading] = useState(false)
     const router = useRouter()
-     const dispatch = useDispatch()
+    const dispatch = useDispatch()
     const handleAddTodo = async (e) => {
         e.preventDefault()
 
         const formData = new FormData(e.target)
         const todo = Object.fromEntries(formData.entries())
         setIsLoading(true)
-        
+
         try {
             const res = await fetch("/api/todos/add", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
-                credentials:'include',
+                credentials: 'include',
                 body: JSON.stringify(todo)
             })
 
@@ -41,7 +41,7 @@ const AddTodo = () => {
         } finally {
 
             setIsLoading(false)
-            
+
         }
     }
 
@@ -52,7 +52,7 @@ const AddTodo = () => {
             </h2>
             <form className="flex flex-col gap-3" onSubmit={handleAddTodo}>
                 <input type="text" placeholder="Enter title" name="title" className="input input-primary " required />
-                <textarea name="description" placeholder="Enter description" rows={5} className="textarea textarea-primary resize-none"  required></textarea>
+                <textarea name="description" placeholder="Enter description" rows={5} className="textarea textarea-primary resize-none" required></textarea>
                 <button className="btn btn-primary" disabled={isLoading}>
                     Add
                 </button>

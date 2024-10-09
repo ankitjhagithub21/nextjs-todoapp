@@ -9,7 +9,7 @@ const Todo = ({ todo ,onDelete,onEdit}) => {
             <b>{todo.createdAt.slice(0, 10)}</b>
            <div className="mt-3">
            <button className="btn btn-warning btn-sm" onClick={()=>onDelete(todo._id)}>Remove</button>
-           <button className="btn  btn-primary ml-2 btn-sm" onClick={()=>onEdit(todo._id)}>Edit</button>
+           <button className="btn  btn-primary ml-2 btn-sm" onClick={()=>onEdit(todo)}>Edit</button>
            </div>
         </div>
     )

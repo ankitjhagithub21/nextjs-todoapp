@@ -1,12 +1,29 @@
 "use client"
 import Link from 'next/link'
 import {usePathname} from 'next/navigation'
-import { useSelector } from 'react-redux'
+import toast from 'react-hot-toast'
+import { useDispatch, useSelector } from 'react-redux'
+import { setIsLoggedIn, setUser } from '../slices/userSlice'
 
 
 const Header = () => {
   const pathName = usePathname()
   const {isLoggedIn} = useSelector(state=>state.user)
+  const dispatch = useDispatch()
+
+  const handleLogout = async() => {
+      try{
+        const res = await fetch("/api/users/logout")
+        const data = await res.json()
+        if(data.success){
+          toast.success(data.message)
+          dispatch(setIsLoggedIn(false))
+          dispatch(setUser(null))
+        }
+      }catch(error){  
+        console.log(error)
+      }
+  }
 
   return (
     <header className="w-full fixed top-0">
@@ -34,7 +51,7 @@ const Header = () => {
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
               
               <li><a>Settings</a></li>
-              <li><a>Logout</a></li>
+              <li onClick={handleLogout}><a>Logout</a></li>
             </ul>
           </div>
         </div>

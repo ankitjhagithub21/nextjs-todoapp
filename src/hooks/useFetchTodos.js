@@ -8,8 +8,6 @@ const useFetchTodos = () => {
     const [error, setError] = useState(null);
     const dispatch = useDispatch();
 
-   
-
     useEffect(() => {
         const fetchTodos = async () => {
             setLoading(true)

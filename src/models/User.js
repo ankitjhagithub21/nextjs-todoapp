@@ -12,14 +12,8 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Password is required.'],
     
-  },
-  todos:[
-    {
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"Todo",
-        default:[]
-    }
-  ]
+  }
+  
  
 });
 

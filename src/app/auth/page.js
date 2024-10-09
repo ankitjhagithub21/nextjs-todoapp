@@ -2,12 +2,16 @@
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import toast from "react-hot-toast"
+import { useDispatch } from "react-redux"
+import { setIsLoggedIn } from "../slices/userSlice"
+
 
 const Auth = () => {
 
   const [currentState, setCurrentState] = useState("login")
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
+  const dispatch = useDispatch()
   
   const handleLogin = async (e) => {
     e.preventDefault()
@@ -27,6 +31,7 @@ const Auth = () => {
       const data = await res.json()
       if (data.success) {
         toast.success(data.message)
+        dispatch(setIsLoggedIn(true))
         router.push("/")
       } else {
         toast.error(data.message)
@@ -39,6 +44,8 @@ const Auth = () => {
       setIsLoading(false)
     }
   }
+
+
 
   return (
     <div className="max-w-md mx-auto my-24 px-5">

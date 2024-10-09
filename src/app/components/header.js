@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux'
 
 const Header = () => {
   const pathName = usePathname()
-  const {user} = useSelector(state=>state.user)
+  const {isLoggedIn} = useSelector(state=>state.user)
 
   return (
     <header className="w-full fixed top-0">
@@ -16,7 +16,7 @@ const Header = () => {
           <Link href="/add" className={`btn ${pathName === "/add" && "btn-primary"} `}>Add Todo</Link>
         </div>
        {
-        user ? <>
+        isLoggedIn ? <>
          <div className="flex-none gap-2">
           <div className="form-control">
             <input type="text" placeholder="Search" className="input input-bordered w-24 md:w-auto" />

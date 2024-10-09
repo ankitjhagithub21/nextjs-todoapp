@@ -2,12 +2,14 @@
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import toast from "react-hot-toast"
+import { useDispatch } from "react-redux"
+import { addTodo } from "../slices/todoSlice"
 
 const AddTodo = () => {
 
     const [isLoading, setIsLoading] = useState(false)
     const router = useRouter()
-
+     const dispatch = useDispatch()
     const handleAddTodo = async (e) => {
         e.preventDefault()
 
@@ -27,6 +29,7 @@ const AddTodo = () => {
 
             const data = await res.json()
             if (data.success) {
+                dispatch(addTodo(data.todo))
                 toast.success(data.message)
                 router.push("/")
             } else {

@@ -11,7 +11,10 @@ const Loader = () => {
                 <h2 className="bg-gray-100 rounded-lg p-3 mb-2 w-1/2"></h2>
                 <p className="bg-gray-100 rounded-lg p-2 mb-2"></p>
                 <p className="bg-gray-100 rounded-lg p-2 w-1/3"></p>
-
+                <div className="mt-3">
+                    <button className=" bg-gray-100 px-8 py-3 rounded-lg"></button>
+                    <button className=" bg-gray-100 px-6 ml-1 py-3 rounded-lg"></button>
+                </div>
             </div>
             })
            }
